@@ -1,0 +1,87 @@
+<%
+  var pagetitle = page.title;
+
+  if (is_home()) 
+  {
+    pagetitle = config.title;
+  }
+  else if (is_archive())
+  {
+    pagetitle = page.title || __('archive_a'); 
+    if (is_month())
+    {
+      pagetitle += ': ' + page.year + '/' + page.month;
+    } 
+    else if (is_year())
+    {
+      pagetitle += ': ' + page.year;
+    }
+  } 
+  else if (is_category())
+  {
+    pagetitle = __('category') + ': ' + page.category;
+  } 
+  else if (is_tag())
+  {
+    pagetitle = __('tag') + ': ' + page.tag;
+  }
+%>
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    <% if( pagetitle === config.title ) { %>
+      <%= config.title %>
+    <% } else { %>
+      <%= pagetitle %>
+    <% } %>
+  </title>
+  <meta name="author" content="<%= config.author %>">
+  <meta name="keywords" content="<%= config.keywords %>" />
+  <meta name="description" content="<%= config.subtitle %>" />
+	<!-- favicon -->
+  <%- favicon_tag(theme.favicon) %>
+
+  <!-- css -->
+  <%- 
+  	css([
+        'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css',			 			
+        'css/Annie.css'
+  		])
+  %>
+  
+  <!-- jquery -->
+	<%- js(['js/jquery.min.js'])%>
+
+  <!-- leancloud -->
+  <%- js([
+  				'https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js', 
+  				'js/leancloud.js'
+  			])
+  %>
+  <!-- cplayer -->
+  <!-- <%- js(['https://cdn.jsdelivr.net/gh/MoePlayer/cPlayer/dist/cplayer.js'])%> -->
+  <%- js('plugin/cPlayer/index.js')%>
+
+  <!--载入js，在</body>之前插入即可-->
+  <!--Leancloud 操作库:-->
+  <!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+  <!--Valine 的核心代码库-->
+  <!-- <script src="http://www.sunfengfeng.com/js/plugins/Valine.min.js"></script> -->
+  <script>
+    // window.onload = function() {
+    //   new Valine({
+    //     // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+    //     av: AV,
+    //     el: '.comment',
+    //     emoticon_url: 'https://cloud.panjunwen.com/alu',
+    //     emoticon_list: ["狂汗.png", "不说话.png", "汗.png", "坐等.png", "献花.png", "不高兴.png", "中刀.png", "害羞.png", "皱眉.png", "小眼睛.png", "暗地观察.png"],
+    //     app_id: '7FQTED2S6CTR8sGEjdVLIM5b-gzGzoHsz',
+    //     app_key: 'zIsFdkIH9kiPvTdytK3lG4X5',
+    //     placeholder: '写评论'
+    //   });
+    // }
+  </script>
+</head>
